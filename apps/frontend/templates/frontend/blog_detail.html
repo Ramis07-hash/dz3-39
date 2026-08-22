@@ -1,0 +1,8 @@
+{% extends "frontend/base.html" %}
+{% block title %}Пост · Vewsets{% endblock %}
+{% block page %}blog-detail{% endblock %}
+{% block content %}
+<article class="detail post-body" id="post-box" data-id="{{ view.kwargs.pk }}">
+  <p class="muted">Загрузка…</p>
+</article>
+{% endblock %}

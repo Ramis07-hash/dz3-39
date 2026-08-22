@@ -1,0 +1,22 @@
+{% extends "frontend/base.html" %}
+{% block title %}Курс · Vewsets{% endblock %}
+{% block page %}course-detail{% endblock %}
+{% block content %}
+<article class="detail" id="course-box" data-id="{{ view.kwargs.pk }}">
+  <p class="muted">Загрузка…</p>
+</article>
+<section class="block">
+  <h2>Уроки</h2>
+  <div class="stack" id="lesson-list"></div>
+</section>
+<section class="panel" id="lesson-form-wrap" hidden>
+  <h2>Добавить урок</h2>
+  <form id="lesson-form" class="form">
+    <label>Название <input name="title" required></label>
+    <label>Содержание <textarea name="content" rows="4" required></textarea></label>
+    <label>Минут <input name="duration_min" type="number" min="1" required></label>
+    <label>Порядок <input name="order" type="number" min="1" required></label>
+    <button type="submit">Создать</button>
+  </form>
+</section>
+{% endblock %}

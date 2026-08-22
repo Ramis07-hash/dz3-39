@@ -1,0 +1,21 @@
+{% extends "frontend/base.html" %}
+{% block title %}Курсы · Vewsets{% endblock %}
+{% block page %}courses{% endblock %}
+{% block content %}
+<section class="page-head">
+  <h1>Курсы</h1>
+  <p>Гость и обычный пользователь видят только опубликованные. Черновики — менеджеру.</p>
+</section>
+<div class="grid" id="course-list"></div>
+<section class="panel" id="course-form-wrap" hidden>
+  <h2>Новый курс</h2>
+  <form id="course-form" class="form">
+    <label>Название <input name="title" required></label>
+    <label>Описание <textarea name="description" rows="4" required></textarea></label>
+    <label>Студентов <input name="students_count" type="number" value="0" min="0"></label>
+    <label>Ссылка <input name="link" type="url" placeholder="https://"></label>
+    <label class="check"><input name="is_published" type="checkbox"> Опубликован</label>
+    <button type="submit">Создать</button>
+  </form>
+</section>
+{% endblock %}

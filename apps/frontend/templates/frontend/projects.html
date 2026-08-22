@@ -1,0 +1,20 @@
+{% extends "frontend/base.html" %}
+{% block title %}Проекты · Vewsets{% endblock %}
+{% block page %}projects{% endblock %}
+{% block content %}
+<section class="page-head">
+  <h1>Проекты</h1>
+  <p>Публичная витрина. Добавлять может только менеджер.</p>
+</section>
+<div class="grid" id="project-list"></div>
+<section class="panel" id="project-form-wrap" hidden>
+  <h2>Новый проект</h2>
+  <form id="project-form" class="form">
+    <label>Название <input name="title" required></label>
+    <label>Категория <input name="category" required></label>
+    <label>Автор <input name="author" required></label>
+    <label>Обложка <input name="image" type="file" accept="image/*" required></label>
+    <button type="submit">Создать</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "frontend/base.html" %}
+{% block title %}Vewsets{% endblock %}
+{% block page %}home{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow" id="hero-eyebrow">Портфолио и курсы</p>
+  <h1 id="hero-title">Смотри проекты, учись, читай блог.</h1>
+  <p class="lead" id="hero-lead">Гость читает всё открытое. Верифицированный пользователь пишет в блог. Менеджер управляет сайтом.</p>
+  <div class="stats" id="hero-stats"></div>
+</section>
+
+<section class="block">
+  <div class="block-head">
+    <h2>Проекты</h2>
+    <a href="/projects/">Все →</a>
+  </div>
+  <div class="grid" id="home-projects"></div>
+</section>
+
+<section class="block">
+  <div class="block-head">
+    <h2>Курсы</h2>
+    <a href="/courses/">Все →</a>
+  </div>
+  <div class="grid" id="home-courses"></div>
+</section>
+
+<section class="block">
+  <div class="block-head">
+    <h2>Блог</h2>
+    <a href="/posts/">Все →</a>
+  </div>
+  <div class="stack" id="home-posts"></div>
+</section>
+{% endblock %}

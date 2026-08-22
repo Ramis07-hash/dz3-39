@@ -1,0 +1,55 @@
+from django.urls import path
+from django.views.generic import TemplateView
+
+urlpatterns = [
+    path(
+        '',
+        TemplateView.as_view(template_name='frontend/index.html'),
+        name='home',
+    ),
+    path(
+        'projects/',
+        TemplateView.as_view(template_name='frontend/projects.html'),
+        name='projects',
+    ),
+    path(
+        'courses/',
+        TemplateView.as_view(template_name='frontend/courses.html'),
+        name='courses',
+    ),
+    path(
+        'courses/<int:pk>/',
+        TemplateView.as_view(template_name='frontend/course_detail.html'),
+        name='course-detail',
+    ),
+    path(
+        'posts/',
+        TemplateView.as_view(template_name='frontend/blog.html'),
+        name='blog',
+    ),
+    path(
+        'posts/<int:pk>/',
+        TemplateView.as_view(template_name='frontend/blog_detail.html'),
+        name='blog-detail',
+    ),
+    path(
+        'login/',
+        TemplateView.as_view(template_name='frontend/login.html'),
+        name='login',
+    ),
+    path(
+        'register/',
+        TemplateView.as_view(template_name='frontend/register.html'),
+        name='register',
+    ),
+    path(
+        'profile/',
+        TemplateView.as_view(template_name='frontend/profile.html'),
+        name='profile',
+    ),
+    path(
+        'manager/',
+        TemplateView.as_view(template_name='frontend/manager.html'),
+        name='manager',
+    ),
+]

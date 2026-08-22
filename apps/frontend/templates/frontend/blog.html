@@ -1,0 +1,21 @@
+{% extends "frontend/base.html" %}
+{% block title %}Блог · Vewsets{% endblock %}
+{% block page %}blog{% endblock %}
+{% block content %}
+<section class="page-head">
+  <h1>Блог</h1>
+  <p>Читать можно без входа. Писать — после верификации менеджером.</p>
+</section>
+<div class="stack" id="post-list"></div>
+<section class="panel" id="post-form-wrap" hidden>
+  <h2>Новый пост</h2>
+  <form id="post-form" class="form">
+    <label>Категория
+      <select name="category" id="post-category" required></select>
+    </label>
+    <label>Заголовок <input name="title" required></label>
+    <label>Текст <textarea name="content" rows="6" required></textarea></label>
+    <button type="submit">Опубликовать</button>
+  </form>
+</section>
+{% endblock %}

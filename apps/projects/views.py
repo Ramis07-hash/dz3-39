@@ -13,7 +13,7 @@ class ProjectListApi(APIView):
         projects = Project.objects.all() # получаем все объекты  author - автор, category - тема, image - фото, title - название
         serializer = ProjectSerializer(projects, many=True) # сериализатор
         return Response(serializer.data) # возвращаем данные в жсон
-
+    
     def post(self, request):
         serializer = ProjectSerializer(data=request.data) # сериализатор
         serializer.is_valid(raise_exception=True) # указываем валидность данных

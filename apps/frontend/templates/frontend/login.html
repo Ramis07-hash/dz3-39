@@ -1,0 +1,22 @@
+{% extends "frontend/base.html" %}
+{% block title %}Вход · Vewsets{% endblock %}
+{% block page %}login{% endblock %}
+{% block content %}
+<section class="auth-card">
+  <h1>Вход</h1>
+  <p class="muted">На уроке переключи вариант и покажи заголовок Authorization в DevTools → Network.</p>
+  <form id="login-form" class="form">
+    <label>Вариант аутентификации
+      <select id="auth-mode" name="auth_mode">
+        <option value="token">1. Token — ключ в базе</option>
+        <option value="jwt">2. JWT — Bearer access + refresh</option>
+      </select>
+    </label>
+    <p class="muted" id="auth-hint"></p>
+    <label>Логин <input name="username" required></label>
+    <label>Пароль <input name="password" type="password" required></label>
+    <button type="submit">Войти</button>
+  </form>
+  <p>Нет аккаунта? <a href="/register/">Регистрация</a></p>
+</section>
+{% endblock %}

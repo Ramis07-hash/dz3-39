@@ -1,0 +1,57 @@
+{% extends "frontend/base.html" %}
+{% block title %}Кабинет менеджера · Vewsets{% endblock %}
+{% block page %}manager{% endblock %}
+{% block content %}
+<section class="page-head">
+  <h1>Кабинет менеджера</h1>
+  <p>Верификация пользователей и контент шапки/подвала.</p>
+</section>
+
+<section class="panel">
+  <h2>Пользователи</h2>
+  <div class="stack" id="user-list"></div>
+</section>
+
+<section class="panel">
+  <h2>Категория блога</h2>
+  <form id="category-form" class="form">
+    <label>Название <input name="name" required></label>
+    <label>Slug <input name="slug" required></label>
+    <button type="submit">Создать</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>Шапка сайта</h2>
+  <form id="header-form" class="form">
+    <label>Заголовок <input name="title" required></label>
+    <label>Ссылка <input name="link" type="url" required></label>
+    <label>Подписчики <input name="followers" type="number" value="0" min="0"></label>
+    <label>Пользователи <input name="users" type="number" value="0" min="0"></label>
+    <label class="check"><input name="like" type="checkbox"> Like</label>
+    <button type="submit">Сохранить шапку</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>Тексты подвала</h2>
+  <form id="footer-text-form" class="form">
+    <label>Колонка 1 <input name="title1" required></label>
+    <label>Колонка 2 <input name="title2" required></label>
+    <label>Колонка 3 <input name="title3" required></label>
+    <label>Колонка 4 <input name="title4" required></label>
+    <button type="submit">Создать тексты</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>Подвал</h2>
+  <form id="footer-form" class="form">
+    <label>Заголовок <input name="title" required></label>
+    <label>Описание <textarea name="description" rows="3" required></textarea></label>
+    <label>ID текстов подвала <input name="footer_text" type="number" required></label>
+    <label>Логотип <input name="logo" type="file" accept="image/*" required></label>
+    <button type="submit">Создать подвал</button>
+  </form>
+</section>
+{% endblock %}

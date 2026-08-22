@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
-
+from datetime import timedelta ######
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-afvd0!1^!jo4s-$(gxo*m=r^tn+4cf6r2!+ggiqq&02d2i-udg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1'] ######
 
 
 # Application definition
@@ -39,10 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters', #####
     'rest_framework',
-    'header_footer',
-    'projects',
-    'course',
-    'blog'######
+    'rest_framework.authtoken', #******
+    'rest_framework_simplejwt', #******
+    'apps.header_footer', #******
+    'apps.projects', #******
+    'apps.course', #******
+    'apps.blog', #******
+    'apps.users', #******
+    'apps.frontend' #******
 ]
 
 MIDDLEWARE = [
@@ -132,9 +136,23 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES':(
+        'apps.users.permissions.IsManagerOrReadOnly',
+    ),
     'DEFAULT_FILTER_BACKENDS':(
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     )
 }
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60), # 1 
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1), # acces 
+    'AUTH_HEADER_TYPES': ('Bearer',),
+} 

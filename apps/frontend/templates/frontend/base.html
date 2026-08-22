@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Vewsets{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,650&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'frontend/css/style.css' %}">
+</head>
+<body data-page="{% block page %}home{% endblock %}">
+  <div class="noise"></div>
+  <header class="top">
+    <a class="brand" href="/">
+      <span class="brand-mark">V</span>
+      <span class="brand-text">Vewsets</span>
+    </a>
+    <nav class="nav">
+      <a href="/projects/">Проекты</a>
+      <a href="/courses/">Курсы</a>
+      <a href="/posts/">Блог</a>
+    </nav>
+    <div class="top-actions" id="nav-auth"></div>
+  </header>
+
+  <div id="flash" class="flash" hidden></div>
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="foot" id="site-footer">
+    <p>Vewsets · учебный API</p>
+  </footer>
+
+  <script src="{% static 'frontend/js/app.js' %}"></script>
+</body>
+</html>
