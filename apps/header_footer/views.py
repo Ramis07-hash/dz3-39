@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema_view, extend_schema #
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -8,6 +9,18 @@ from .models import Header, Footer, FooterText
 from .serializers import HeaderSerializer, FooterTextSerializer, FooterSerializer
 
 
+@extend_schema_view(
+    get=extend_schema(
+        tags=['header-footer'],
+        summary='Список Header',
+        operation_id='header_list',
+    ),
+    post=extend_schema(
+            tags=['header-footer'],
+            summary='Создать Header',
+            operation_id='header_create',
+        ),
+)
 class HeaderView(APIView):
     def get(self, request):
         headers = Header.objects.all()

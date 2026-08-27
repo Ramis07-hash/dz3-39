@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken', #******
     'rest_framework_simplejwt', #******
+    'drf_spectacular', # -=-=-=-=-=-=-=-=--==-=-=-
     'apps.header_footer', #******
     'apps.projects', #******
     'apps.course', #******
@@ -148,7 +149,8 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema', # 
 }
 
 SIMPLE_JWT = {
@@ -156,3 +158,23 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1), # acces 
     'AUTH_HEADER_TYPES': ('Bearer',),
 } 
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Portfolio',
+    'DESCRIPTION': (
+        'Документация API \n' 
+        'Авторизация JWT - Bearer & Token - Key'
+    ),
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SCHEMA_PATH_PREFIX': r'/',
+    'TAGS':[
+        {'name': 'users', 'description': "Регистрация, Логин, Профиль"},
+        {'name': 'api', 'description': "Проекты для портфолио"},
+        {'name': 'course', 'description': "Курсы занятий и уроки"},
+        {'name': 'blog', 'description': "Мой Блог"},
+        {'name': 'header-footer', 'description': "Шапка и Конец сайта"},
+    ]
+
+}
