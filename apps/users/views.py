@@ -7,6 +7,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenRefreshView
 
+# drf-spectacular импорттору
+from drf_spectacular.utils import (
+    extend_schema,
+    extend_schema_view,
+    OpenApiParameter,
+    OpenApiTypes,
+)
+
 from .models import UserProfile
 from .permissions import IsManager
 from .serializers import (
@@ -32,6 +40,16 @@ def _check_password(request):
     return user, None
 
 
+@extend_schema(
+    tags=['users'],
+    summary="Колдонуучуну каттоо",
+    description="Жаңы колдонуучуну каттоодон өткөрөт жана түзүлгөн профилдин маалыматтарын кайтарат.",
+    request=RegisterSerializer,
+    responses={
+        201: OpenApiTypes.OBJECT,
+        400: OpenApiTypes.OBJECT,
+    }
+)
 class RegisterView(APIView):
     permission_classes = (AllowAny,)
 
@@ -45,6 +63,16 @@ class RegisterView(APIView):
         )
 
 
+@extend_schema(
+    tags=['users'],
+    summary="Token авторизациясы (Логин)",
+    description="Колдонуучунун логин жана паролу аркылуу DRF Token алуу.",
+    request=LoginSerializer,
+    responses={
+        200: OpenApiTypes.OBJECT,
+        400: OpenApiTypes.OBJECT,
+    }
+)
 class TokenLoginView(APIView):
     permission_classes = (AllowAny,)
 
@@ -55,6 +83,15 @@ class TokenLoginView(APIView):
         return Response(token_payload(user))
 
 
+@extend_schema(
+    tags=['users'],
+    summary="Token аркылуу системадан чыгуу (Системадан чыгуу)",
+    description="Авторизацияланган колдонуучунун DRF Tokenин өчүрөт.",
+    responses={
+        204: None,
+        401: OpenApiTypes.OBJECT,
+    }
+)
 class TokenLogoutView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -63,6 +100,16 @@ class TokenLogoutView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@extend_schema(
+    tags=['users'],
+    summary="JWT авторизациясы (Логин)",
+    description="Колдонуучунун логин жана паролу аркылуу JWT (Access жана Refresh) токендерин алуу.",
+    request=LoginSerializer,
+    responses={
+        200: OpenApiTypes.OBJECT,
+        400: OpenApiTypes.OBJECT,
+    }
+)
 class JWTLoginView(APIView):
     permission_classes = (AllowAny,)
 
@@ -73,10 +120,24 @@ class JWTLoginView(APIView):
         return Response(jwt_payload(user))
 
 
+@extend_schema(
+    tags=['users'],
+    summary="JWT Токенди жаңылоо (Refresh Token)",
+    description="Refresh токен аркылуу жаңы Access токен алуу."
+)
 class JWTRefreshView(TokenRefreshView):
     permission_classes = (AllowAny,)
 
 
+@extend_schema(
+    tags=['users'],
+    summary="Учурдагы колдонуучунун профилин алуу (Me)",
+    description="Авторизациядан өткөн колдонуучунун жеке маалыматтарын кайтарат.",
+    responses={
+        200: OpenApiTypes.OBJECT,
+        401: OpenApiTypes.OBJECT,
+    }
+)
 class MeView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -84,12 +145,42 @@ class MeView(APIView):
         return Response(profile_data(request.user))
 
 
+@extend_schema_view(
+    get=extend_schema(
+        tags=['users'],
+        summary="Бардык колдонуучулардын тизмесин алуу",
+        description="Системадагы бардык колдонуучулардын профилдерин алуу (Менеджерлер үчүн гана).",
+        responses={
+            200: UserProfileSerializer(many=True),
+            403: OpenApiTypes.OBJECT,
+        }
+    )
+)
 class UserListView(generics.ListAPIView):
     queryset = UserProfile.objects.select_related('user').all()
     serializer_class = UserProfileSerializer
     permission_classes = (IsManager,)
 
 
+@extend_schema(
+    tags=['users'],
+    summary="Колдонуучуну верификациялоо (Тастыктоо)",
+    description="Колдонуучунун профилин `is_verified=True` катары белгилөө (Менеджерлер үчүн гана).",
+    parameters=[
+        OpenApiParameter(
+            name='pk',
+            type=OpenApiTypes.INT,
+            location=OpenApiParameter.PATH,
+            description="Верификация кылынуучу UserProfile ID номери"
+        )
+    ],
+    request=None,
+    responses={
+        200: UserProfileSerializer,
+        403: OpenApiTypes.OBJECT,
+        404: OpenApiTypes.OBJECT,
+    }
+)
 class VerifyUserView(APIView):
     permission_classes = (IsManager,)
 
